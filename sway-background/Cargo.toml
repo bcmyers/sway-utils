@@ -1,0 +1,10 @@
+[package]
+name = "sway-background"
+version = "0.1.0"
+authors = ["Brian Myers <brian.carl.myers@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+failure = "0.1"
+rand = "0.6"
+structopt = "0.2"

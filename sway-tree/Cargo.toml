@@ -1,0 +1,10 @@
+[package]
+name = "sway-tree"
+version = "0.1.0"
+authors = ["Brian Myers <brian.carl.myers@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+failure = "0.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

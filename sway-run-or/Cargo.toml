@@ -1,0 +1,11 @@
+[package]
+name = "sway-run-or"
+version = "0.1.0"
+authors = ["Brian Myers <brian.carl.myers@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2.33"
+failure = "0.1"
+structopt = "0.2"
+sway-tree = { path = "../sway-tree" }

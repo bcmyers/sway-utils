@@ -1,0 +1,9 @@
+[workspace]
+
+members = [
+    "sway-background",
+    "sway-run-or",
+    "sway-tree",
+]
+
+
