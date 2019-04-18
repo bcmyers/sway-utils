@@ -1,3 +1,7 @@
+#[macro_use]
+extern crate log;
+
+use std::borrow::Cow;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -31,27 +35,31 @@ pub struct Opt {
 }
 
 fn main() -> Result<(), Error> {
+    env_logger::init();
     let opt = Opt::from_args();
-    set_background(&opt.dir, &opt.path, opt.startup)?;
+    if let Err(e) = set_background(&opt.dir, &opt.path, opt.startup) {
+        error!("{}", e);
+        return Err(e);
+    };
     Ok(())
 }
 
 pub fn set_background(dir: &Path, glob: &Vec<String>, startup: bool) -> Result<(), Error> {
     let paths = copy_images(dir, glob)?;
 
-    let image = match paths.len() {
+    let image: Cow<Path> = match paths.len() {
         0 => {
             let images = gather_images(dir, 0)?;
             if images.is_empty() {
                 failure::bail!("No background images in folder.")
             }
             let choice = rand::random::<usize>() % images.len();
-            (&images[choice]).clone()
+            (&images[choice]).clone().into()
         }
-        1 => paths[0].clone(), // TODO: Clone?
+        1 => paths.get(0).unwrap().into(),
         n => {
             let choice = rand::random::<usize>() % n;
-            paths[choice].clone()
+            paths.get(choice).unwrap().into()
         }
     };
 
