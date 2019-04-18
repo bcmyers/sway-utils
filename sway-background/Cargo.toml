@@ -5,6 +5,10 @@ authors = ["Brian Myers <brian.carl.myers@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+crossbeam = "0.7"
 failure = "0.1"
+glob = "0.3"
+image = "0.21"
 rand = "0.6"
+rayon = "1.0"
 structopt = "0.2"
