@@ -97,7 +97,7 @@ fn copy_images(dir: &Path, glob: &Vec<String>) -> Result<Vec<PathBuf>, Error> {
         let outfilename = format!("{}.jpg", file_stem);
         let outpath = dir.join(outfilename);
         if outpath.exists() {
-            sender.send(Ok(None)).unwrap();
+            sender.send(Ok(Some(outpath))).unwrap();
             return;
         }
         let image = match image::open(inpath) {
@@ -129,6 +129,7 @@ fn copy_images(dir: &Path, glob: &Vec<String>) -> Result<Vec<PathBuf>, Error> {
     let mut outpaths = Vec::with_capacity(glob.len());
     for _ in 0..glob.len() {
         let maybe_outpath = receiver.recv().unwrap()?;
+
         if let Some(outpath) = maybe_outpath {
             outpaths.push(outpath);
         }
